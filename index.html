@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Tetris</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css">
+        body, html, td {
+            background-color: white;
+        }
+
+        div#main_container {
+            margin: 150px auto;
+            width: 215px;
+            position: relative;
+        }
+
+        div#info {
+            position: absolute;
+            top: 0;
+            left: 210px;
+            width: 150px;
+            height: 419px;
+            border: 1px solid #ccc;
+        }
+
+        div#info table {
+            width: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+        }
+
+        tr.invisible td {
+            display: none;
+        }
+
+        td#next_piece {
+            padding: 20px 0;
+        }
+
+        td#next_piece table {
+            width: auto;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        td#next_piece td {
+            width: 7px;
+            height: 7px;
+        }
+    </style>
+</head>
+<body>
+<div id="main_container">
+<div id="info">
+    <table>
+        <tr>
+            <td id="next_piece">
+                <table>
+                    <tr>
+                        <td id="n0_0"></td>
+                        <td id="n1_0"></td>
+                        <td id="n2_0"></td>
+                        <td id="n3_0"></td>
+                    </tr>
+                    <tr>
+                        <td id="n0_1"></td>
+                        <td id="n1_1"></td>
+                        <td id="n2_1"></td>
+                        <td id="n3_1"></td>
+                    </tr>
+                    <tr>
+                        <td id="n0_2"></td>
+                        <td id="n1_2"></td>
+                        <td id="n2_2"></td>
+                        <td id="n3_2"></td>
+                    </tr>
+                    <tr>
+                        <td id="n0_3"></td>
+                        <td id="n1_3"></td>
+                        <td id="n2_3"></td>
+                        <td id="n3_3"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="score"><span>Score:&nbsp;</span><span id="total_score">0</span></td>
+        </tr>
+        <tr>
+            <td class="speed"><span>Speed:&nbsp;</span><span id="speed_count">0</span></td>
+        </tr>
+        <tr>
+            <td class="lines"><span>Lines count:&nbsp;</span><span id="lines_count">0</span></td>
+        </tr>
+        <tr>
+            <td class="button">
+                <input type="button" id="btn_start" value="Start"/>
+                <input type="button" id="btn_pause" value="Pause"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<table cellpadding="0" cellspacing="0">
+<tr class="invisible">
+    <td id="c0_20"></td>
+    <td id="c1_20"></td>
+    <td id="c2_20"></td>
+    <td id="c3_20"></td>
+    <td id="c4_20"></td>
+    <td id="c5_20"></td>
+    <td id="c6_20"></td>
+    <td id="c7_20"></td>
+    <td id="c8_20"></td>
+    <td id="c9_20"></td>
+</tr>
+<tr>
+    <td id="c0_19"></td>
+    <td id="c1_19"></td>
+    <td id="c2_19"></td>
+    <td id="c3_19"></td>
+    <td id="c4_19"></td>
+    <td id="c5_19"></td>
+    <td id="c6_19"></td>
+    <td id="c7_19"></td>
+    <td id="c8_19"></td>
+    <td id="c9_19"></td>
+</tr>
+<tr>
+    <td id="c0_18"></td>
+    <td id="c1_18"></td>
+    <td id="c2_18"></td>
+    <td id="c3_18"></td>
+    <td id="c4_18"></td>
+    <td id="c5_18"></td>
+    <td id="c6_18"></td>
+    <td id="c7_18"></td>
+    <td id="c8_18"></td>
+    <td id="c9_18"></td>
+</tr>
+<tr>
+    <td id="c0_17"></td>
+    <td id="c1_17"></td>
+    <td id="c2_17"></td>
+    <td id="c3_17"></td>
+    <td id="c4_17"></td>
+    <td id="c5_17"></td>
+    <td id="c6_17"></td>
+    <td id="c7_17"></td>
+    <td id="c8_17"></td>
+    <td id="c9_17"></td>
+</tr>
+<tr>
+    <td id="c0_16"></td>
+    <td id="c1_16"></td>
+    <td id="c2_16"></td>
+    <td id="c3_16"></td>
+    <td id="c4_16"></td>
+    <td id="c5_16"></td>
+    <td id="c6_16"></td>
+    <td id="c7_16"></td>
+    <td id="c8_16"></td>
+    <td id="c9_16"></td>
+</tr>
+<tr>
+    <td id="c0_15"></td>
+    <td id="c1_15"></td>
+    <td id="c2_15"></td>
+    <td id="c3_15"></td>
+    <td id="c4_15"></td>
+    <td id="c5_15"></td>
+    <td id="c6_15"></td>
+    <td id="c7_15"></td>
+    <td id="c8_15"></td>
+    <td id="c9_15"></td>
+</tr>
+<tr>
+    <td id="c0_14"></td>
+    <td id="c1_14"></td>
+    <td id="c2_14"></td>
+    <td id="c3_14"></td>
+    <td id="c4_14"></td>
+    <td id="c5_14"></td>
+    <td id="c6_14"></td>
+    <td id="c7_14"></td>
+    <td id="c8_14"></td>
+    <td id="c9_14"></td>
+</tr>
+<tr>
+    <td id="c0_13"></td>
+    <td id="c1_13"></td>
+    <td id="c2_13"></td>
+    <td id="c3_13"></td>
+    <td id="c4_13"></td>
+    <td id="c5_13"></td>
+    <td id="c6_13"></td>
+    <td id="c7_13"></td>
+    <td id="c8_13"></td>
+    <td id="c9_13"></td>
+</tr>
+<tr>
+    <td id="c0_12"></td>
+    <td id="c1_12"></td>
+    <td id="c2_12"></td>
+    <td id="c3_12"></td>
+    <td id="c4_12"></td>
+    <td id="c5_12"></td>
+    <td id="c6_12"></td>
+    <td id="c7_12"></td>
+    <td id="c8_12"></td>
+    <td id="c9_12"></td>
+</tr>
+<tr>
+    <td id="c0_11"></td>
+    <td id="c1_11"></td>
+    <td id="c2_11"></td>
+    <td id="c3_11"></td>
+    <td id="c4_11"></td>
+    <td id="c5_11"></td>
+    <td id="c6_11"></td>
+    <td id="c7_11"></td>
+    <td id="c8_11"></td>
+    <td id="c9_11"></td>
+</tr>
+<tr>
+    <td id="c0_10"></td>
+    <td id="c1_10"></td>
+    <td id="c2_10"></td>
+    <td id="c3_10"></td>
+    <td id="c4_10"></td>
+    <td id="c5_10"></td>
+    <td id="c6_10"></td>
+    <td id="c7_10"></td>
+    <td id="c8_10"></td>
+    <td id="c9_10"></td>
+</tr>
+<tr>
+    <td id="c0_9"></td>
+    <td id="c1_9"></td>
+    <td id="c2_9"></td>
+    <td id="c3_9"></td>
+    <td id="c4_9"></td>
+    <td id="c5_9"></td>
+    <td id="c6_9"></td>
+    <td id="c7_9"></td>
+    <td id="c8_9"></td>
+    <td id="c9_9"></td>
+</tr>
+<tr>
+    <td id="c0_8"></td>
+    <td id="c1_8"></td>
+    <td id="c2_8"></td>
+    <td id="c3_8"></td>
+    <td id="c4_8"></td>
+    <td id="c5_8"></td>
+    <td id="c6_8"></td>
+    <td id="c7_8"></td>
+    <td id="c8_8"></td>
+    <td id="c9_8"></td>
+</tr>
+<tr>
+    <td id="c0_7"></td>
+    <td id="c1_7"></td>
+    <td id="c2_7"></td>
+    <td id="c3_7"></td>
+    <td id="c4_7"></td>
+    <td id="c5_7"></td>
+    <td id="c6_7"></td>
+    <td id="c7_7"></td>
+    <td id="c8_7"></td>
+    <td id="c9_7"></td>
+</tr>
+<tr>
+    <td id="c0_6"></td>
+    <td id="c1_6"></td>
+    <td id="c2_6"></td>
+    <td id="c3_6"></td>
+    <td id="c4_6"></td>
+    <td id="c5_6"></td>
+    <td id="c6_6"></td>
+    <td id="c7_6"></td>
+    <td id="c8_6"></td>
+    <td id="c9_6"></td>
+</tr>
+<tr>
+    <td id="c0_5"></td>
+    <td id="c1_5"></td>
+    <td id="c2_5"></td>
+    <td id="c3_5"></td>
+    <td id="c4_5"></td>
+    <td id="c5_5"></td>
+    <td id="c6_5"></td>
+    <td id="c7_5"></td>
+    <td id="c8_5"></td>
+    <td id="c9_5"></td>
+</tr>
+<tr>
+    <td id="c0_4"></td>
+    <td id="c1_4"></td>
+    <td id="c2_4"></td>
+    <td id="c3_4"></td>
+    <td id="c4_4"></td>
+    <td id="c5_4"></td>
+    <td id="c6_4"></td>
+    <td id="c7_4"></td>
+    <td id="c8_4"></td>
+    <td id="c9_4"></td>
+</tr>
+<tr>
+    <td id="c0_3"></td>
+    <td id="c1_3"></td>
+    <td id="c2_3"></td>
+    <td id="c3_3"></td>
+    <td id="c4_3"></td>
+    <td id="c5_3"></td>
+    <td id="c6_3"></td>
+    <td id="c7_3"></td>
+    <td id="c8_3"></td>
+    <td id="c9_3"></td>
+</tr>
+<tr>
+    <td id="c0_2"></td>
+    <td id="c1_2"></td>
+    <td id="c2_2"></td>
+    <td id="c3_2"></td>
+    <td id="c4_2"></td>
+    <td id="c5_2"></td>
+    <td id="c6_2"></td>
+    <td id="c7_2"></td>
+    <td id="c8_2"></td>
+    <td id="c9_2"></td>
+</tr>
+<tr>
+    <td id="c0_1"></td>
+    <td id="c1_1"></td>
+    <td id="c2_1"></td>
+    <td id="c3_1"></td>
+    <td id="c4_1"></td>
+    <td id="c5_1"></td>
+    <td id="c6_1"></td>
+    <td id="c7_1"></td>
+    <td id="c8_1"></td>
+    <td id="c9_1"></td>
+</tr>
+<tr>
+    <td id="c0_0"></td>
+    <td id="c1_0"></td>
+    <td id="c2_0"></td>
+    <td id="c3_0"></td>
+    <td id="c4_0"></td>
+    <td id="c5_0"></td>
+    <td id="c6_0"></td>
+    <td id="c7_0"></td>
+    <td id="c8_0"></td>
+    <td id="c9_0"></td>
+</tr>
+</table>
+</div>
+<script type='text/javascript' src='tetris.js'></script>
+</body>
+</html>
