@@ -100,7 +100,7 @@ function keyhandler(e) {
             case 38:
                 if (tetris_globals.is_rotation_allowed(tetris_globals.piece.coordinates, tetris_globals.piece.structure, tetris_globals.piece.width, tetris_globals.piece.height, tetris_globals.piece.do_rotate, tetris_globals.piece.disposition) === 'allow') {
                     tetris_globals.piece.do_rotate();
-                    tetris_globals.piece.do_draw();
+                    tetris_globals.piece.do_draw(false);
                 }
                 break;
             case 40:
@@ -117,7 +117,7 @@ function keyhandler(e) {
     }
     return true
 }
-tetris_globals.bind_controls = function() {
+tetris_globals.bind_controls = function () {
     if (document.addEventListener) {
         document.addEventListener('keydown', keyhandler, false);
     } else if (document.attachEvent) {
@@ -126,18 +126,18 @@ tetris_globals.bind_controls = function() {
         document.onkeydown = keyhandler;
     }
 };
-tetris_globals.unbind_controls = function() {
+tetris_globals.unbind_controls = function () {
     if (document.removeEventListener) {
         document.removeEventListener('keydown', keyhandler, false);
     } else if (document.detachEvent) {
         document.detachEvent('onkeydown', keyhandler);
     } else {
-        document.onkeydown = function() {
+        document.onkeydown = function () {
             return false
         };
     }
 };
-tetris_globals.clear_field = function() {
+tetris_globals.clear_field = function () {
     for (var jj = 0; jj < 20; jj++) {
         for (var ii = 0; ii < 10; ii++) {
             var element_id = 'c' + ii + '_' + jj;
@@ -146,11 +146,11 @@ tetris_globals.clear_field = function() {
         }
     }
 };
-tetris_globals.get_random_piece = function() {
-    var array_pieces = ['i','t','z','s','l','j','o'];
+tetris_globals.get_random_piece = function () {
+    var array_pieces = ['i', 't', 'z', 's', 'l', 'j', 'o'];
     return array_pieces[Math.floor(Math.random() * (7))];
 };
-tetris_globals.Piece = function(type) {
+tetris_globals.Piece = function (type) {
     //Pieces disposition
     this.disposition = 0;
     switch (type) {
@@ -158,29 +158,29 @@ tetris_globals.Piece = function(type) {
             this.width = this.height = 4;
             //Piece
             this.structure = [
-                [1,1,1,1],
-                [0,0,0,0],
-                [0,0,0,0],
-                [0,0,0,0]
+                [1, 1, 1, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
             ];
             //Rotation
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [0,1,0,0],
-                            [0,1,0,0],
-                            [0,1,0,0],
-                            [0,1,0,0]
+                            [0, 1, 0, 0],
+                            [0, 1, 0, 0],
+                            [0, 1, 0, 0],
+                            [0, 1, 0, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [1,1,1,1],
-                            [0,0,0,0],
-                            [0,0,0,0],
-                            [0,0,0,0]
+                            [1, 1, 1, 1],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -189,41 +189,41 @@ tetris_globals.Piece = function(type) {
         case 't':
             this.width = this.height = 3;
             this.structure = [
-                [0,1,0],
-                [1,1,1],
-                [0,0,0]
+                [0, 1, 0],
+                [1, 1, 1],
+                [0, 0, 0]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [0,1,0],
-                            [0,1,1],
-                            [0,1,0]
+                            [0, 1, 0],
+                            [0, 1, 1],
+                            [0, 1, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [1,1,1],
-                            [0,1,0],
-                            [0,0,0]
+                            [1, 1, 1],
+                            [0, 1, 0],
+                            [0, 0, 0]
                         ];
                         this.disposition = 2;
                         break;
                     case 2:
                         this.structure = [
-                            [0,1,0],
-                            [1,1,0],
-                            [0,1,0]
+                            [0, 1, 0],
+                            [1, 1, 0],
+                            [0, 1, 0]
                         ];
                         this.disposition = 3;
                         break;
                     case 3:
                         this.structure = [
-                            [0,1,0],
-                            [1,1,1],
-                            [0,0,0]
+                            [0, 1, 0],
+                            [1, 1, 1],
+                            [0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -232,25 +232,25 @@ tetris_globals.Piece = function(type) {
         case 'z':
             this.width = this.height = 3;
             this.structure = [
-                [1,1,0],
-                [0,1,1],
-                [0,0,0]
+                [1, 1, 0],
+                [0, 1, 1],
+                [0, 0, 0]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [0,1,0],
-                            [1,1,0],
-                            [1,0,0]
+                            [0, 1, 0],
+                            [1, 1, 0],
+                            [1, 0, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [1,1,0],
-                            [0,1,1],
-                            [0,0,0]
+                            [1, 1, 0],
+                            [0, 1, 1],
+                            [0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -259,25 +259,25 @@ tetris_globals.Piece = function(type) {
         case 's':
             this.width = this.height = 3;
             this.structure = [
-                [0,1,1],
-                [1,1,0],
-                [0,0,0]
+                [0, 1, 1],
+                [1, 1, 0],
+                [0, 0, 0]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [1,0,0],
-                            [1,1,0],
-                            [0,1,0]
+                            [1, 0, 0],
+                            [1, 1, 0],
+                            [0, 1, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [0,1,1],
-                            [1,1,0],
-                            [0,0,0]
+                            [0, 1, 1],
+                            [1, 1, 0],
+                            [0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -286,41 +286,41 @@ tetris_globals.Piece = function(type) {
         case 'l':
             this.width = this.height = 3;
             this.structure = [
-                [0,0,1],
-                [1,1,1],
-                [0,0,0]
+                [0, 0, 1],
+                [1, 1, 1],
+                [0, 0, 0]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [1,0,0],
-                            [1,0,0],
-                            [1,1,0]
+                            [1, 0, 0],
+                            [1, 0, 0],
+                            [1, 1, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [1,1,1],
-                            [1,0,0],
-                            [0,0,0]
+                            [1, 1, 1],
+                            [1, 0, 0],
+                            [0, 0, 0]
                         ];
                         this.disposition = 2;
                         break;
                     case 2:
                         this.structure = [
-                            [1,1,0],
-                            [0,1,0],
-                            [0,1,0]
+                            [1, 1, 0],
+                            [0, 1, 0],
+                            [0, 1, 0]
                         ];
                         this.disposition = 3;
                         break;
                     case 3:
                         this.structure = [
-                            [0,0,1],
-                            [1,1,1],
-                            [0,0,0]
+                            [0, 0, 1],
+                            [1, 1, 1],
+                            [0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -329,41 +329,41 @@ tetris_globals.Piece = function(type) {
         case 'j':
             this.width = this.height = 3;
             this.structure = [
-                [1,0,0],
-                [1,1,1],
-                [0,0,0]
+                [1, 0, 0],
+                [1, 1, 1],
+                [0, 0, 0]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
                 switch (this.disposition) {
                     case 0:
                         this.structure = [
-                            [1,1,0],
-                            [1,0,0],
-                            [1,0,0]
+                            [1, 1, 0],
+                            [1, 0, 0],
+                            [1, 0, 0]
                         ];
                         this.disposition = 1;
                         break;
                     case 1:
                         this.structure = [
-                            [1,1,1],
-                            [0,0,1],
-                            [0,0,0]
+                            [1, 1, 1],
+                            [0, 0, 1],
+                            [0, 0, 0]
                         ];
                         this.disposition = 2;
                         break;
                     case 2:
                         this.structure = [
-                            [0,1,0],
-                            [0,1,0],
-                            [1,1,0]
+                            [0, 1, 0],
+                            [0, 1, 0],
+                            [1, 1, 0]
                         ];
                         this.disposition = 3;
                         break;
                     case 3:
                         this.structure = [
-                            [1,0,0],
-                            [1,1,1],
-                            [0,0,0]
+                            [1, 0, 0],
+                            [1, 1, 1],
+                            [0, 0, 0]
                         ];
                         this.disposition = 0;
                 }
@@ -372,16 +372,16 @@ tetris_globals.Piece = function(type) {
         case 'o':
             this.width = this.height = 2;
             this.structure = [
-                [1,1],
-                [1,1]
+                [1, 1],
+                [1, 1]
             ];
-            this.do_rotate = function() {
+            this.do_rotate = function () {
             };
     }
     //Starting coordinates
-    this.coordinates = {xx:3,yy:20};
+    this.coordinates = {xx:3, yy:20};
 };
-tetris_globals.do_move = function() {
+tetris_globals.do_move = function () {
     var check_result = tetris_globals.piece.is_move_allowed('down');
     if (check_result === 'allow') {
         tetris_globals.moved_once = true;
@@ -406,9 +406,9 @@ tetris_globals.do_move = function() {
         }
     }
 };
-tetris_globals.Piece.prototype.is_move_allowed = function(direction) {
-    var xmod,ymod;
-    var element_id,element;
+tetris_globals.Piece.prototype.is_move_allowed = function (direction) {
+    var xmod, ymod;
+    var element_id, element;
     switch (direction) {
         case 'down':
             xmod = 0;
@@ -453,19 +453,19 @@ tetris_globals.Piece.prototype.is_move_allowed = function(direction) {
     }
     return 'allow';
 };
-tetris_globals.is_rotation_allowed = function(coordinates, structure, width, height, do_rotate, disposition) {
-    var _coordinates = {xx:coordinates.xx,yy:coordinates.yy};
-    var piece_copy = {coordinates:_coordinates,structure:structure,height:height,width:width,do_rotate:do_rotate,disposition:disposition};
+tetris_globals.is_rotation_allowed = function (coordinates, structure, width, height, do_rotate, disposition) {
+    var _coordinates = {xx:coordinates.xx, yy:coordinates.yy};
+    var piece_copy = {coordinates:_coordinates, structure:structure, height:height, width:width, do_rotate:do_rotate, disposition:disposition};
     piece_copy.do_rotate();
     for (var jj = 0; jj < piece_copy.height; jj++) {
         for (var ii = 0; ii < piece_copy.width; ii++) {
             if (piece_copy.structure[jj][ii] === 1) {
                 var element_id = 'c' + (piece_copy.coordinates.xx + ii) + '_' + (piece_copy.coordinates.yy - jj);
                 if ((piece_copy.coordinates.xx + ii) < 0 ||
-                        (piece_copy.coordinates.xx + ii) > 9 ||
-                        (piece_copy.coordinates.yy - jj) < 0 ||
-                        (piece_copy.coordinates.yy - jj) > 19 ||
-                        (document.getElementById(element_id).style.backgroundColor === 'gray')) {
+                    (piece_copy.coordinates.xx + ii) > 9 ||
+                    (piece_copy.coordinates.yy - jj) < 0 ||
+                    (piece_copy.coordinates.yy - jj) > 19 ||
+                    (document.getElementById(element_id).style.backgroundColor === 'gray')) {
                     return 'cancel';
                 }
             }
@@ -473,12 +473,12 @@ tetris_globals.is_rotation_allowed = function(coordinates, structure, width, hei
     }
     return 'allow';
 };
-tetris_globals.Piece.prototype.do_draw = function(direction) {
-    var element_id,element;
+tetris_globals.Piece.prototype.do_draw = function (direction) {
+    var element_id, element;
     for (var ii = -1; ii < this.height + 1; ii++) {
         for (var jj = -1; jj < this.width + 1; jj++) {
             if ((this.coordinates.xx + ii) >= 0 && (this.coordinates.xx + ii) < 10 &&
-                    (this.coordinates.yy - jj + 1 ) >= 0 && (this.coordinates.yy - jj + 1 ) < 20) {
+                (this.coordinates.yy - jj + 1 ) >= 0 && (this.coordinates.yy - jj + 1 ) < 20) {
                 element_id = 'c' + (this.coordinates.xx + ii) + '_' + (this.coordinates.yy - jj + 1 );
                 element = document.getElementById(element_id);
                 if (element.style.backgroundColor === 'black') {
@@ -507,7 +507,7 @@ tetris_globals.Piece.prototype.do_draw = function(direction) {
         }
     }
 };
-tetris_globals.Piece.prototype.lock = function() {
+tetris_globals.Piece.prototype.lock = function () {
     for (var ii = 0; ii < this.height; ii++) {
         for (var jj = 0; jj < this.width; jj++) {
             if (this.structure[jj][ii] === 1) {
@@ -518,9 +518,9 @@ tetris_globals.Piece.prototype.lock = function() {
         }
     }
 };
-tetris_globals.if_filled = function() {
-    var speed_array = [800,770,740,710,680,650,620,590,560,530,500,470,440,410,380,350,320,290,260,230];
-    var line_filled,jj = 0,lines_in_row = 0;
+tetris_globals.if_filled = function () {
+    var speed_array = [800, 770, 740, 710, 680, 650, 620, 590, 560, 530, 500, 470, 440, 410, 380, 350, 320, 290, 260, 230];
+    var line_filled, jj = 0, lines_in_row = 0;
     while (jj < 20) {
         line_filled = true;
         for (var ii = 0; ii < 10; ii++) {
@@ -555,13 +555,12 @@ tetris_globals.if_filled = function() {
         }
     }
     var speed_index = (Math.floor(tetris_globals.lines_count / 10));
-    var a = (speed_index > 19) && (speed_index = 19);
     tetris_globals.speed = speed_array[speed_index];
     document.getElementById('speed_count').innerHTML = speed_index + 1;
     document.getElementById('lines_count').innerHTML = tetris_globals.lines_count;
     document.getElementById('total_score').innerHTML = tetris_globals.total_score;
 };
-tetris_globals.line_cleaner = function(jj) {
+tetris_globals.line_cleaner = function (jj) {
     for (jj; jj < 19; jj++) {
         for (var ii = 0; ii < 10; ii++) {
             var element_id = 'c' + ii + '_' + jj;
@@ -572,7 +571,7 @@ tetris_globals.line_cleaner = function(jj) {
         }
     }
 };
-tetris_globals.draw_next_piece = function(piece_type) {
+tetris_globals.draw_next_piece = function (piece_type) {
     var next_piece = new tetris_globals.Piece(piece_type);
     for (var jj = 0; jj < 4; jj++) {
         for (var ii = 0; ii < 4; ii++) {
@@ -587,7 +586,7 @@ tetris_globals.draw_next_piece = function(piece_type) {
         }
     }
 };
-document.getElementById('btn_start').onclick = function() {
+document.getElementById('btn_start').onclick = function () {
     tetris_globals.lines_count = 0;
     tetris_globals.total_score = 0;
     tetris_globals.speed = 800;
@@ -610,7 +609,7 @@ document.getElementById('btn_start').onclick = function() {
     tetris_globals.draw_next_piece(tetris_globals.next_piece);
     tetris_globals.do_move();
 };
-document.getElementById('btn_pause').onclick = function() {
+document.getElementById('btn_pause').onclick = function () {
     if (tetris_globals.is_started === true) {
         if (tetris_globals.is_paused === false) {
             document.getElementById('btn_pause').value = 'Continue';
